@@ -1,0 +1,26 @@
+*.class
+*.log
+*.swp
+*.swo
+.classpath
+.DS_Store
+*-dev.cfg
+
+# sbt specific
+.cache/
+.history/
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+samples/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+
+*.sublime-workspace
+*.sublime-project
