@@ -9,16 +9,6 @@ cache:
   - "$HOME/.ivy2/cache"
   - "$HOME/.sbt/boot/"
 
-before_install:
-  - sudo add-apt-repository ppa:chris-lea/libsodium -y
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libsodium-dev
-
-install:
-  - pip install --user codecov
-
 script:
 - sbt ++$TRAVIS_SCALA_VERSION scalastyle compile 
 - sbt ++$TRAVIS_SCALA_VERSION coverage test coverageReport
-after_success:
-- codecov
