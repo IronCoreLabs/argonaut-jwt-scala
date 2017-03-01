@@ -35,8 +35,10 @@ object JwtArgonaut extends JwtJsonCommon[Json] {
   private def getAlg(cursor: HCursor): Option[JwtAlgorithm] = {
     cursor.get[String]("alg").toOption.flatMap {
       case "none" => None
-      case s if s == null => None
-      case s: String => Option(JwtAlgorithm.fromString(s))
+      case s: String => for {
+        nonNullString <- Option(s)
+        result <- Option(JwtAlgorithm.fromString(s))
+      } yield result
       case _ => throw new JwtNonStringException("alg")
     }
   }
