@@ -8,8 +8,6 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-useGpg := true
-
 publishTo := {
   val nexus = "s3://maven.ironcorelabs.com"
   if (isSnapshot.value)
