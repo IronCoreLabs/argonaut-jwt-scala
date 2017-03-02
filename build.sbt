@@ -1,6 +1,5 @@
 organization := "com.ironcorelabs"
 name := "argonaut-jwt-scala"
-version := "0.0.1-SNAPSHOT"
 scalaVersion := "2.12.0"
 
 com.typesafe.sbt.SbtScalariform.scalariformSettings
