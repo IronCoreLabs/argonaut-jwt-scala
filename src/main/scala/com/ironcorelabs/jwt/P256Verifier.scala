@@ -12,11 +12,11 @@ import scala.util.Try
 case class PointNotOnCurve(x: ByteVector, y: ByteVector) extends Exception with scala.util.control.NoStackTrace
 
 class PublicKeyVerifier(val curveParams: X9ECParameters) {
-  final val Curve = curveParams.getCurve
-  final val CurveSpec = new ECParameterSpec(Curve, curveParams.getG, curveParams.getN, curveParams.getH)
-  final val BouncyCastleProvider = new BouncyCastleProvider()
-  final val Factory = KeyFactory.getInstance("ECDSA", BouncyCastleProvider)
-  final val ZeroByte = hex"00"
+  final val Curve: ECCurve = curveParams.getCurve
+  final val CurveSpec: ECParameterSpec = new ECParameterSpec(Curve, curveParams.getG, curveParams.getN, curveParams.getH)
+  final val BouncyCastleProvider: BouncyCastleProvider = new BouncyCastleProvider()
+  final val Factory: KeyFactory = KeyFactory.getInstance("ECDSA", BouncyCastleProvider)
+  final val ZeroByte: ByteVector = hex"00"
 
   /**
    * Get the PublicKey for x and y. Will return an IllegalArgementException if the
@@ -37,5 +37,5 @@ class PublicKeyVerifier(val curveParams: X9ECParameters) {
 }
 
 //If this exception happens it means the BouncyCastle lib is either screwed up or the P-256 was removed.
-object P256PublicKeyVerifier
+object P256PublicKeyVerifier //scalastyle:off 
   extends PublicKeyVerifier(Option(ECNamedCurveTable.getByName("P-256")).getOrElse(throw new Exception("P-256 was not defined.")))
