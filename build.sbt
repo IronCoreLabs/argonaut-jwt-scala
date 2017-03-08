@@ -1,6 +1,7 @@
 organization := "com.ironcorelabs"
 name := "argonaut-jwt-scala"
-scalaVersion := "2.12.0"
+scalaVersion := "2.12.1"
+crossScalaVersions := Seq("2.11.8", "2.12.1")
 
 com.typesafe.sbt.SbtScalariform.scalariformSettings
 
@@ -14,7 +15,6 @@ scalacOptions := Seq(
       "-Yno-adapted-args",
       "-Ywarn-numeric-widen",
       "-Ywarn-value-discard",
-      "-Ypartial-unification",
       "-Xfuture",
       "-language:higherKinds"
   )
