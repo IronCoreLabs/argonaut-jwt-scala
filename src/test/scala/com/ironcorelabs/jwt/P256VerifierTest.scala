@@ -45,7 +45,7 @@ class P256PublicKeyVerifierTest extends WordSpec with TryValues with Matchers {
 }
 
 object P256PublicKeyVerifierTest {
-  import java.security.{KeyPairGenerator, KeyPair, SecureRandom}
+  import java.security.{KeyPairGenerator, SecureRandom}
   import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey
   //SIDE EFFECT HO!
   val g = KeyPairGenerator.getInstance("ECDSA", P256PublicKeyVerifier.BouncyCastleProvider)
