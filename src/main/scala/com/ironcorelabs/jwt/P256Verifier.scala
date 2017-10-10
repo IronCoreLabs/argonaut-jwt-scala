@@ -2,10 +2,10 @@ package com.ironcorelabs.jwt
 
 import org.bouncycastle.asn1.x9.{X9ECParameters, ECNamedCurveTable}
 import scodec.bits._
-import org.bouncycastle.math.ec.{ECCurve, ECPoint}
+import org.bouncycastle.math.ec.ECCurve
 import org.bouncycastle.jce.spec.{ECPublicKeySpec, ECParameterSpec}
 import java.math.BigInteger
-import java.security.{PublicKey, KeyFactory, KeyPairGenerator, SecureRandom}
+import java.security.{PublicKey, KeyFactory}
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import scala.util.Try
 
