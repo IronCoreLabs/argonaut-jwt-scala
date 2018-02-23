@@ -1,7 +1,7 @@
 organization := "com.ironcorelabs"
 name := "argonaut-jwt-scala"
 scalaVersion := "2.12.3"
-crossScalaVersions := Seq("2.11.8", "2.12.3")
+crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 com.typesafe.sbt.SbtScalariform.scalariformSettings
 
@@ -20,11 +20,11 @@ scalacOptions := Seq(
   )
 
 libraryDependencies ++= Seq(
-  "io.argonaut" %% "argonaut" % "6.2",
-  "com.pauldijou" %% "jwt-json-common" % "0.14.0",
+  "io.argonaut" %% "argonaut" % "6.2.1",
+  "com.pauldijou" %% "jwt-json-common" % "0.14.1",
   "org.scodec" %% "scodec-bits" % "1.1.5"
   ) ++ Seq(
-  "org.scalatest" %% "scalatest" % "3.0.0"
+  "org.scalatest" %% "scalatest" % "3.0.4"
   ).map(_ % "test")
 
 coverageMinimum := 80
