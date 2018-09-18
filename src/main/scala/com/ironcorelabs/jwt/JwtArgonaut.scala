@@ -8,7 +8,7 @@ import pdi.jwt.{JwtJsonCommon, JwtClaim, JwtAlgorithm, JwtHeader}
 /**
  * Implementation of `JwtCore` using `Json` from Argonaut.
  */
-object JwtArgonaut extends JwtJsonCommon[Json] {
+object JwtArgonaut extends JwtJsonCommon[Json, JwtHeader, JwtClaim] {
   protected def parse(value: String): Json = Parse.parseOption(value).get
   protected def parseClaim(claim: String): JwtClaim = {
     val cursor = parse(claim).hcursor
