@@ -22,7 +22,7 @@ scalacOptions := Seq(
 libraryDependencies ++= Seq(
   "io.argonaut" %% "argonaut" % "6.2.2",
   "com.pauldijou" %% "jwt-json-common" % "0.18.0",
-  "org.scodec" %% "scodec-bits" % "1.1.5"
+  "org.scodec" %% "scodec-bits" % "1.1.6"
   ) ++ Seq(
   "org.scalatest" %% "scalatest" % "3.0.5"
   ).map(_ % "test")
