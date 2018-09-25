@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
   "com.pauldijou" %% "jwt-json-common" % "0.18.0",
   "org.scodec" %% "scodec-bits" % "1.1.5"
   ) ++ Seq(
-  "org.scalatest" %% "scalatest" % "3.0.4"
+  "org.scalatest" %% "scalatest" % "3.0.5"
   ).map(_ % "test")
 
 coverageMinimum := 80
