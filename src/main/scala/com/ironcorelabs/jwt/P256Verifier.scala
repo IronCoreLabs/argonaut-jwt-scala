@@ -16,18 +16,16 @@ class PublicKeyVerifier(val curveParams: X9ECParameters) {
   final val CurveSpec: ECParameterSpec = new ECParameterSpec(Curve, curveParams.getG, curveParams.getN, curveParams.getH)
   final val BouncyCastleProvider: BouncyCastleProvider = new BouncyCastleProvider()
   final val Factory: KeyFactory = KeyFactory.getInstance("ECDSA", BouncyCastleProvider)
-  final val ZeroByte: ByteVector = hex"00"
 
   /**
    * Get the PublicKey for x and y. Will return an IllegalArgementException if the
    * createPoint fails (aka if the x and y are very wrong). Will return PointNotOnCurve if the
    * created point wasn't on the curve defined by curveParams.
    *
-   * This method ensures that x and y are both padded with zeros to avoid common issues with negative number byte arrays.
-   * These will be thrown away by BigInteger if they're not needed.
+   * This method ensures that x and y are both interpreted as positive numbers.
    */
   def apply(x: ByteVector, y: ByteVector): Try[PublicKey] = Try {
-    val maybeValidPoint = Curve.createPoint(new BigInteger((ZeroByte ++ x).toArray), new BigInteger((ZeroByte ++ y).toArray))
+    val maybeValidPoint = Curve.createPoint(new BigInteger(1, x.toArray), new BigInteger(1, y.toArray))
     if (!maybeValidPoint.isValid) {
       throw new PointNotOnCurve(x, y)
     } else {

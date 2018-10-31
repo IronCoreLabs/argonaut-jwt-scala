@@ -4,6 +4,7 @@ import org.scalatest.{WordSpec, TryValues, OptionValues, Matchers}
 import pdi.jwt.JwtAlgorithm
 import argonaut._
 import org.bouncycastle.jce.spec.ECPrivateKeySpec
+import scodec.bits.{ByteVector, Bases}
 
 class JwtArgonautTest extends WordSpec with TryValues with OptionValues with Matchers {
   "JwtArgonautTest" should {
@@ -56,6 +57,15 @@ class JwtArgonautTest extends WordSpec with TryValues with OptionValues with Mat
       val differentPublicKey = P256PublicKeyVerifierTest.generateKeyPair.getPublic
       val result = JwtArgonaut.decodeJson(encoded, differentPublicKey, Seq(algo)).failure.exception
       result shouldBe a[pdi.jwt.exceptions.JwtValidationException]
+    }
+
+    "verify signature and detect expired jwt on RS256 value using RSAPublicKey" in {
+      val algo = JwtAlgorithm.RS256
+      val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwWXhNekUwTlVJeE9UVTNRakZFTlRZM01rVkNRakE0UkVNMk1UTkZOVGRETVRBNE9EQTVNUSJ9.eyJodHRwOi8vaXJvbmNvcmUva2lkIjozNSwiaHR0cDovL2lyb25jb3JlL3NpZCI6MjIsImh0dHA6Ly9pcm9uY29yZS91aWQiOiJlcm5pZS50dXJuZXJAaXJvbmNvcmVsYWJzLmNvbSIsImlzcyI6Imh0dHBzOi8vaXJvbmNvcmVsYWJzLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjYyNDQyMzY2MzI1NDQ1Mjg5NCIsImF1ZCI6ImhHRUx4dUJLRDY0bHRTNFZOYUl5Mm16Vnd0cWdKYTVmIiwiaWF0IjoxNTQwNDg3MDg0LCJleHAiOjE1NDA1MjMwODQsImF0X2hhc2giOiJPcE53aXh6NU5fMnBxNzNWbDQxbTJRIiwibm9uY2UiOiI4VFJRckdWWnZyLWdBVHJKdWdWYUw1bzVKaE1lVTJZLSJ9.h5wKJjGFhuo6VmXoDPs-9yoavo3z_lWLkyibXKPr0DsJS21F6q-KDHJC9NK7P6Fh4EP0D-BJUn4I7YIZlKwv1kYS9rHK_sWVUlGBOEXzPDFPgaSyNCRBPcgJPwoAe179YNntM9CFinmswLoFBRe8tan0w42MiT9Yt5HQ45MP_2roE6qYUuJLM92Vs9Z4c2A0zCnDtfO0m2duaV_LZWL4SNKMyUsz3TA_OCVGOP1g0HoUqSluBWGcPYHeUC1F8OWPYunWeB0q55zalWoJ8U-HHeX9gUupFiUBzAycXkU5tGDoOvjsFgVhWGHRxvrRZBJDA7LVG2nnzCPfM0V3hj0QZA"
+      val publicKeyBytes = ByteVector.fromBase64("sAFHaLpCNp1ZnB_lqCP7aVSLleJbyFcCGj8rv5EQi8JjvqXs78hMwbaKRHB-09hxMhCzBhn7M2rfLynP2xOassP3RS9B0HlA4rf_XvvUY_aJHrJkRKe7GNfGzHW5KBqYXysle69LpXjYXcvQt7nqRyoZMpgyum1yNFwp4iunSekjAXfC_Z7yBgAQjCWLJ_c7WZvDLdHDw7hmihXGVIej6G7PMjmTs9d8T_1FzFYJwdmofsNHHXh8gNfNtBFfBcXeKjYyqwHmR1UHRL_eSlhbq7Rl4GoCfx3386yeFoBJ-ER3ljWx7QyjEeGkLOq3oNvh7-WbVqAm38aZ2LhBklzS8Q", Bases.Alphabets.Base64Url).value
+      val e = ByteVector.fromBase64("AQAB").value
+      val publicKey = RSAPublicKey(publicKeyBytes, e).right.get
+      JwtArgonaut.decode(jwt, publicKey, List(algo)).toEither.left.get shouldBe a[pdi.jwt.exceptions.JwtExpirationException]
     }
   }
   def toBigInteger(bv: scodec.bits.ByteVector) = new java.math.BigInteger(bv.toArray)
