@@ -1,13 +1,13 @@
 package com.ironcorelabs.jwt
 
-import org.scalatest.WordSpec
+import org.scalatest.{WordSpec, Matchers}
 import scodec.bits._
 
-class RSAPublicKeyTest extends WordSpec {
+class RSAPublicKeyTest extends WordSpec with Matchers {
   "getPublicKey" should {
     "accept obviously invalid values" in {
-      //This is just to reinforce the documentation information that obviously incorrect values will not throw
-      RSAPublicKey(hex"00", hex"00")
+      //This is just to reinforce the documentation information that obviously incorrect values will be left
+      RSAPublicKey(hex"aaaaa", hex"aaaaaaaaaaaaaaaaaaaaa") shouldBe ('left)
     }
   }
 }

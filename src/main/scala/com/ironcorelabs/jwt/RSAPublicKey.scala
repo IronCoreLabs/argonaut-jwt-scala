@@ -10,9 +10,9 @@ object RSAPublicKey { //scalastyle:off
   private def bytesToBigInt(bytes: ByteVector) = new BigInteger(1, bytes.toArray)
   /**
    * Convert a publicKey (usually referred to as n) and the exponent (e) to a public RSA key. Note that this conversion
-   * will always succeed, but if you generate something that's invalid the JWT validation will fail.
+   * will fail if the values are invalid.
    */
-  def apply(publicKey: ByteVector, e: ByteVector): PublicKey = {
-    keyFactory.generatePublic(new RSAPublicKeySpec(bytesToBigInt(publicKey), bytesToBigInt(e)))
+  def apply(publicKey: ByteVector, e: ByteVector): Either[Throwable, PublicKey] = {
+    scala.util.Try(keyFactory.generatePublic(new RSAPublicKeySpec(bytesToBigInt(publicKey), bytesToBigInt(e)))).toEither
   }
 }
