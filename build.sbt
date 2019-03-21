@@ -20,7 +20,7 @@ scalacOptions := Seq(
   )
 
 libraryDependencies ++= Seq(
-  "io.argonaut" %% "argonaut" % "6.2.2",
+  "io.argonaut" %% "argonaut" % "6.2.3",
   "com.pauldijou" %% "jwt-json-common" % "1.1.0",
   "org.scodec" %% "scodec-bits" % "1.1.9"
   ) ++ Seq(
