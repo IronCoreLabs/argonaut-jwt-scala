@@ -3,7 +3,7 @@ package com.ironcorelabs.jwt
 import argonaut._, Argonaut._
 
 import pdi.jwt.exceptions.JwtNonStringException
-import pdi.jwt.{JwtJsonCommon, JwtClaim, JwtAlgorithm, JwtHeader}
+import pdi.jwt.{JwtAlgorithm, JwtClaim, JwtHeader, JwtJsonCommon}
 
 /**
  * Implementation of `JwtCore` using `Json` from Argonaut.
@@ -15,7 +15,7 @@ object JwtArgonaut extends JwtJsonCommon[Json, JwtHeader, JwtClaim] {
     val contentCursor = List("iss", "sub", "aud", "exp", "nbf", "iat", "jti").foldLeft(cursor) { (cursor, field) =>
       cursor.downField(field).delete.success match {
         case Some(newCursor) => newCursor
-        case None => cursor
+        case None            => cursor
       }
     }
     JwtClaim(
@@ -32,16 +32,16 @@ object JwtArgonaut extends JwtJsonCommon[Json, JwtHeader, JwtClaim] {
 
   protected def stringify(value: Json): String = value.asJson.nospaces
 
-  private def getAlg(cursor: HCursor): Option[JwtAlgorithm] = {
+  private def getAlg(cursor: HCursor): Option[JwtAlgorithm] =
     cursor.get[String]("alg").toOption.flatMap {
       case "none" => None
-      case s: String => for {
-        nonNullString <- Option(s)
-        result <- Option(JwtAlgorithm.fromString(s))
-      } yield result
+      case s: String =>
+        for {
+          nonNullString <- Option(s)
+          result        <- Option(JwtAlgorithm.fromString(s))
+        } yield result
       case _ => throw new JwtNonStringException("alg")
     }
-  }
 
   protected def parseHeader(header: String): JwtHeader = {
     val cursor = parse(header).hcursor

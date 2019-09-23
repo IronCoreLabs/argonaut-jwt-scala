@@ -1,11 +1,11 @@
 package com.ironcorelabs.jwt
 
-import org.bouncycastle.asn1.x9.{X9ECParameters, ECNamedCurveTable}
+import org.bouncycastle.asn1.x9.{ECNamedCurveTable, X9ECParameters}
 import scodec.bits._
 import org.bouncycastle.math.ec.ECCurve
-import org.bouncycastle.jce.spec.{ECPublicKeySpec, ECParameterSpec}
+import org.bouncycastle.jce.spec.{ECParameterSpec, ECPublicKeySpec}
 import java.math.BigInteger
-import java.security.{PublicKey, KeyFactory}
+import java.security.{KeyFactory, PublicKey}
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import scala.util.Try
 
@@ -13,7 +13,8 @@ case class PointNotOnCurve(x: ByteVector, y: ByteVector) extends Exception with 
 
 class PublicKeyVerifier(val curveParams: X9ECParameters) {
   final val Curve: ECCurve = curveParams.getCurve
-  final val CurveSpec: ECParameterSpec = new ECParameterSpec(Curve, curveParams.getG, curveParams.getN, curveParams.getH)
+  final val CurveSpec: ECParameterSpec =
+    new ECParameterSpec(Curve, curveParams.getG, curveParams.getN, curveParams.getH)
   final val BouncyCastleProvider: BouncyCastleProvider = new BouncyCastleProvider()
   final val Factory: KeyFactory = KeyFactory.getInstance("ECDSA", BouncyCastleProvider)
 
@@ -35,5 +36,7 @@ class PublicKeyVerifier(val curveParams: X9ECParameters) {
 }
 
 //If this exception happens it means the BouncyCastle lib is either screwed up or the P-256 was removed.
-object P256PublicKeyVerifier //scalastyle:off 
-  extends PublicKeyVerifier(Option(ECNamedCurveTable.getByName("P-256")).getOrElse(throw new Exception("P-256 was not defined.")))
+object P256PublicKeyVerifier //scalastyle:off
+    extends PublicKeyVerifier(
+      Option(ECNamedCurveTable.getByName("P-256")).getOrElse(throw new Exception("P-256 was not defined."))
+    )
