@@ -10,5 +10,5 @@ cache:
   - "$HOME/.sbt/boot/"
 
 script:
-- sbt ++$TRAVIS_SCALA_VERSION scalastyle compile 
+- sbt ++$TRAVIS_SCALA_VERSION scalafmtCheckAll scalastyle compile 
 - sbt ++$TRAVIS_SCALA_VERSION coverage test coverageReport

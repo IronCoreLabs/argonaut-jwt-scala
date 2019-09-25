@@ -1,6 +1,6 @@
 package com.ironcorelabs.jwt
 
-import org.scalatest.{WordSpec, Matchers, TryValues}
+import org.scalatest.{Matchers, TryValues, WordSpec}
 import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey
 import scodec.bits._
 
