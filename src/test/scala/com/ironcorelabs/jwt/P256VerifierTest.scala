@@ -1,10 +1,12 @@
 package com.ironcorelabs.jwt
 
-import org.scalatest.{Matchers, TryValues, WordSpec}
+import org.scalatest.TryValues
 import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey
 import scodec.bits._
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class P256PublicKeyVerifierTest extends WordSpec with TryValues with Matchers {
+class P256PublicKeyVerifierTest extends AnyWordSpec with TryValues with Matchers {
   "P256PublicKeyVerifier" should {
     "successfully convert valid public key with a 30 byte x" in {
       val (x, y) = hex"6c8bdf3cbbab30bff5467539ac462df79583f17aa828983f45c3d04c55ab" -> hex"00b213df136f2c7a987580e1bd0251b682cb13572488d27d4c9a148d9e1e7f0e6d"

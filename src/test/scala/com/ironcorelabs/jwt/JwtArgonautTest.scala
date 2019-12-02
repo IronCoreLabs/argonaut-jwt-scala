@@ -1,12 +1,14 @@
 package com.ironcorelabs.jwt
 
-import org.scalatest.{Matchers, OptionValues, TryValues, WordSpec}
+import org.scalatest.{OptionValues, TryValues}
 import pdi.jwt.JwtAlgorithm
 import argonaut._
 import org.bouncycastle.jce.spec.ECPrivateKeySpec
 import scodec.bits.{Bases, ByteVector}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class JwtArgonautTest extends WordSpec with TryValues with OptionValues with Matchers {
+class JwtArgonautTest extends AnyWordSpec with TryValues with OptionValues with Matchers {
   "JwtArgonautTest" should {
     val time = 1488130700L
     "be able to encode " in {
