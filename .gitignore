@@ -25,3 +25,4 @@ samples/
 .metals
 *.sublime-workspace
 *.sublime-project
+project/metals.sbt

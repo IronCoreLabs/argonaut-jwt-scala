@@ -10,7 +10,6 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider
 import scala.util.Try
 
 case class PointNotOnCurve(x: ByteVector, y: ByteVector) extends Exception with scala.util.control.NoStackTrace
-
 class PublicKeyVerifier(val curveParams: X9ECParameters) {
   final val Curve: ECCurve = curveParams.getCurve
   final val CurveSpec: ECParameterSpec =
@@ -25,14 +24,14 @@ class PublicKeyVerifier(val curveParams: X9ECParameters) {
    *
    * This method ensures that x and y are both interpreted as positive numbers.
    */
-  def apply(x: ByteVector, y: ByteVector): Try[PublicKey] = Try {
-    val maybeValidPoint = Curve.createPoint(new BigInteger(1, x.toArray), new BigInteger(1, y.toArray))
-    if (!maybeValidPoint.isValid) {
-      throw new PointNotOnCurve(x, y)
-    } else {
-      Factory.generatePublic(new ECPublicKeySpec(maybeValidPoint, CurveSpec))
+  def apply(x: ByteVector, y: ByteVector): Try[PublicKey] =
+    Try {
+      val maybeValidPoint = Curve.createPoint(new BigInteger(1, x.toArray), new BigInteger(1, y.toArray))
+      if (!maybeValidPoint.isValid)
+        throw new PointNotOnCurve(x, y)
+      else
+        Factory.generatePublic(new ECPublicKeySpec(maybeValidPoint, CurveSpec))
     }
-  }
 }
 
 //If this exception happens it means the BouncyCastle lib is either screwed up or the P-256 was removed.
