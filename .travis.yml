@@ -2,13 +2,14 @@ language: scala
 
 matrix:
   include:
-  - scala: 2.12.10
-    jdk: openjdk11
+    - scala: 2.12.11
+      jdk: openjdk11
 cache:
   directories:
-  - "$HOME/.ivy2/cache"
-  - "$HOME/.sbt/boot/"
+    - "$HOME/.ivy2/cache"
+    - "$HOME/.cache/coursier/v1"
+    - "$HOME/.sbt/boot/"
 
 script:
-- sbt ++$TRAVIS_SCALA_VERSION scalafmtCheckAll scalastyle compile 
-- sbt ++$TRAVIS_SCALA_VERSION coverage test coverageReport
+  - sbt ++$TRAVIS_SCALA_VERSION scalafmtCheckAll scalastyle compile
+  - sbt ++$TRAVIS_SCALA_VERSION coverage test coverageReport
