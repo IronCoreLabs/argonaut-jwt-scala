@@ -23,7 +23,7 @@ libraryDependencies ++= Seq(
   "com.pauldijou" %% "jwt-json-common" % "1.1.0",
   "org.scodec"    %% "scodec-bits"     % "1.1.17"
 ) ++ Seq(
-  "org.scalatest" %% "scalatest" % "3.1.2"
+  "org.scalatest" %% "scalatest" % "3.2.0"
 ).map(_ % "test")
 
 // HACK: without these lines, the console is basically unusable,
