@@ -1,6 +1,6 @@
 organization := "com.ironcorelabs"
 name := "argonaut-jwt-scala"
-scalaVersion := "2.12.11"
+scalaVersion := "2.12.12"
 crossScalaVersions := Seq("2.11.12", "2.12.11")
 
 scalacOptions := Seq(
@@ -21,9 +21,9 @@ scalacOptions := Seq(
 libraryDependencies ++= Seq(
   "io.argonaut"   %% "argonaut"        % "6.2.5",
   "com.pauldijou" %% "jwt-json-common" % "1.1.0",
-  "org.scodec"    %% "scodec-bits"     % "1.1.21"
+  "org.scodec"    %% "scodec-bits"     % "1.1.22"
 ) ++ Seq(
-  "org.scalatest" %% "scalatest" % "3.2.2"
+  "org.scalatest" %% "scalatest" % "3.2.3"
 ).map(_ % "test")
 
 // HACK: without these lines, the console is basically unusable,
