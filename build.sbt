@@ -1,7 +1,7 @@
 organization := "com.ironcorelabs"
 name := "argonaut-jwt-scala"
 scalaVersion := "2.12.12"
-crossScalaVersions := Seq("2.11.12", "2.12.11")
+crossScalaVersions := Seq("2.11.12", "2.12.13")
 
 scalacOptions := Seq(
   "-deprecation",
