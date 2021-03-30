@@ -20,10 +20,10 @@ scalacOptions := Seq(
 
 libraryDependencies ++= Seq(
   "io.argonaut"   %% "argonaut"        % "6.2.5",
-  "com.pauldijou" %% "jwt-json-common" % "5.0.0",
-  "org.scodec"    %% "scodec-bits"     % "1.1.23"
+  "com.pauldijou" %% "jwt-json-common" % "1.1.0",
+  "org.scodec"    %% "scodec-bits"     % "1.1.25"
 ) ++ Seq(
-  "org.scalatest" %% "scalatest" % "3.2.3"
+  "org.scalatest" %% "scalatest" % "3.2.4"
 ).map(_ % "test")
 
 // HACK: without these lines, the console is basically unusable,
